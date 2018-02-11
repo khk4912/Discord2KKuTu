@@ -5,9 +5,9 @@
     * [Helloyunho](https://github.com/Helloyunho) (Rewrite, 끄투 연동 부분)
     * ["펀크"](https://github.com/rlacks628628)
 
-- 테스트에 도움 주신 분들 (서버)  
+- 테스트에 도움 주신 서버  
     * [라이트끄투](http://litekkutu.oa.to:90)
-    * [Preta Crowz](https://github.com/Preta-Crowz)
+    * [Prj_KT](http://prjkt.zz.am:3141/)
 
 ## Discord2KKuTu에 오신 것을 환영합니다!
 
