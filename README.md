@@ -17,7 +17,7 @@ Discord2KKuTu는 채팅 프로그램 Discord와 웹 끝말잇기 게임인 KKuTu
 
 ## 필요한 모듈 
 - [Discord.py (rewrite)](https://github.com/Rapptz/discord.py)
-- ~~OrderedDit~~
+- ~~OrderedDict~~
 - asyncio
 - threading
 - ~~multiprocessing~~
