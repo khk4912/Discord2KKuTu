@@ -34,6 +34,7 @@ class discordbot(discord.Client):
                 for n in a:
                     ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + n.url + '"}')
             ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + message.content + '"}')
+            print("[디코] " + message.author.name + " : " + message.content)
             # a = message.attachments
             # b = len(a)
 
@@ -42,9 +43,14 @@ async def send_discord(me):
     await ch.send(me)
     return True
 
+def loop_send():
+    print('[끄투] ' + name + ': ' + value )
+    client.loop.create_task(send_discord('[끄투] ' + name + ': ' + value))
 class kkutubot(threading.Thread):
     def run(self):
         def on_message(ws, message):
+            global value
+            global name
             jsonstring = json.loads(message)
             if jsonstring['type'] == 'chat':
                 if not jsonstring['profile']['id'] == config.wsid:
@@ -56,8 +62,8 @@ class kkutubot(threading.Thread):
                     value = jsonstring['value']
                     value = value.replace("@here","")
                     value = value.replace("@everyone","")
-                    client.loop.create_task(send_discord('[끄투] ' + name + " : " + value))
-
+                    sdline = threading.Thread(target=loop_send) #Helloyunho님 참고!
+                    sdline.start()
         def on_close(ws):
             print("\n\n 경고! websocket이 종료되었습니다! \n\n")
 
