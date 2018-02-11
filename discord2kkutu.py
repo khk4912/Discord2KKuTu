@@ -26,7 +26,8 @@ class discordbot(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + message.content + '"}')
+        if message.channel.id == config.channel:
+            ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + message.content + '"}')
 
 async def send_discord(me):
     ch = client.get_channel(config.channelid)
