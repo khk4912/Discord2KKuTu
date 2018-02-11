@@ -1,87 +1,46 @@
-# import kkutu2discord
-import discord
-import json
-import websocket
-import asyncio
-import threading
+import random, discord, requests, json, websocket ,asyncio ,threading, bs4
 client = discord.Client()
-global socket_url
-global text1
-
-text1 = None
-socket_url = "socket_here"
-def smessage(msg):
-    global ws
-    ws.send('{"type":"talk","value":"'+msg+'"}')
-
-# async def dsmessage(tgmsg):
-#     await client.wait_until_ready()
-
-    # global tgmsg
-    # while True:
-    #     if not tgmsg is None:
-    #         await client.send_message(discord.Channel(id="400592573867229185"), tgmsg)
-    #         tgmsg = None
-    #         print(tgmsg)
-    #     else:
-    #         pass
-# async def kkutu():
-async def send():
-    global text1
-    while True:
-        
-        if not text1 == None:
-            ch = discord.Object(id="400592573867229185")
-            await client.send_message(ch, text1)
-            text1 = None
-        else:
-            pass    
+wsurl = "웹소켓 주소"
+def send_kkutu(msg):
+	global ws 
+	ws.send('{"type":"talk","value":"'+msg+'"}')
+async def send_discord(msg):
+	await client.send_message(discord.Object(id="디코 보낼 채널"), msg)
 class kkutu(threading.Thread):
-    def run(self):
-        global ws
-
-        def onmessage(ws,message):
-            global text1
-        # print(message)
-            data = json.loads(message)
-            if data["type"] == "chat":
-                try:
-                    name = data["profile"]["title"]
-                except:
-                    name = data["profile"]["name"]
-                    # sendmsg("400592573867229185","test")
-
-                # print(ws,message)
-                if not name == "GUEST8779":
-                    print("[끄투] %s : %s" %(name, data["value"]))
-                    try:
-                        name = data["profile"]["title"]
-                    except:
-                        name = data["profile"]["name"]
-                    text3 = "[끄투] %s : %s" %(name, data["value"])
-                    text1 = text3.replace("@everyone","")
-                    text1 = text1.replace("@here","")
-        def on_close(ws):
-            print("경고! websocket이 중지되었습니다!")
-
-        websocket.enableTrace(True)
-        ws = websocket.WebSocketApp(socket_url, on_message=onmessage,on_close=on_close)
-        ws.run_forever()
-
-
+	def run(self):
+		global ws
+		def onmessage(ws,message):
+			li = random.choice([1, 2])
+			data = json.loads(message)
+			try:
+				name = data["profile"]["name"]
+			except:
+				name = data["profile"]["title"]
+			if name == "GUEST7045":
+				return
+			content = data["value"]
+			if li == 1:
+				text = "```diff\n+[끄투]"+name+":"+content+"```"
+			if li == 2:
+				text = "```diff\n-[끄투]"+name+":"+content+"```"
+			client.loop.create_task(send_discord(text))
+		def on_close(ws):
+			print("웹소켓 꺼졌다!\n안해안해안해")
+		websocket.enableTrace(True)
+		ws = websocket.WebSocketApp(wsurl, on_message=onmessage,on_close=on_close)
+		ws.run_forever()
 @client.event
 async def on_ready():
-    print("\n디스코드 준비 완료!")
-
+	print("디코 파트 준비 끝\nALL OF DISOCRD PART IS ON_READY")
 @client.event
 async def on_message(message):
-    global ws
-    if message.author.id != "411772883652706304" and message.channel.id == "400592573867229185":
-        print("[디코] " +message.author.name + " : " + message.content)
-
-        smessage("[디코] " +message.author.name + " : " + message.content)
-
+	global ws
+	if not message.channel.id == "디코 받을 채널":
+		return
+	if message.author.bot:
+		return
+	send_kkutu("[디코]"+message.author.name+":"+message.content+"")
 recv = kkutu(name="get_chat")
 recv.start()
-client.loop.create_task(send())
-client.run("token")
+client.run("토큰")
+	
