@@ -20,14 +20,22 @@ import multiprocessing
 import discord
 import threading
 import config
+
 class discordbot(discord.Client):
     async def on_ready(self):
         print('\n\n디스코드 로그인 완료\n\n')
     async def on_message(self, message):
         if message.author == self.user:
             return
-        if message.channel.id == config.channel:
+        if message.channel.id == config.channelid:
+            a = message.attachments
+            b = len(a)
+            if b > 0:
+                for n in a:
+                    ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + n.url + '"}')
             ws.send('{"type":"talk","value":"' + '[디코] ' + message.author.name + ': ' + message.content + '"}')
+            # a = message.attachments
+            # b = len(a)
 
 async def send_discord(me):
     ch = client.get_channel(config.channelid)
@@ -45,8 +53,10 @@ class kkutubot(threading.Thread):
                         name = jsonstring["profile"]["title"]
                     except:
                         name = jsonstring["profile"]["name"]
-
-                    client.loop.create_task(send_discord('[끄투] ' + name + " : " + jsonstring['value']))
+                    value = jsonstring['value']
+                    value = value.replace("@here","")
+                    value = value.replace("@everyone","")
+                    client.loop.create_task(send_discord('[끄투] ' + name + " : " + value))
 
         def on_close(ws):
             print("\n\n 경고! websocket이 종료되었습니다! \n\n")
