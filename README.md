@@ -1,6 +1,7 @@
 # Discord2KKuTu
 
-- 제작 [khk4912 (BGM)](https://github.com/khk4912) 
+- 제작 
+    * [khk4912 (BGM)](https://github.com/khk4912) 
 - 코드에 도움을 주신 분들
     * [Helloyunho](https://github.com/Helloyunho) (Rewrite, 끄투 연동 부분)
     * ["펀크"](https://github.com/rlacks628628)
