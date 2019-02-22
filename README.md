@@ -36,11 +36,6 @@ Discord2KKuTu는 채팅 프로그램 Discord와 웹 끝말잇기 게임인 KKuTu
 
 
 
-## 라이선스
-
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Discord2KKuTu</span>은(는) <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">크리에이티브 커먼즈 저작자표시-동일조건변경허락 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
-
-
 ## 문의
 문의는 디스코드 BGM#0970으로 친구추가를 하신 후, DM 바랍니다. 
 
